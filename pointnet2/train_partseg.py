@@ -21,7 +21,7 @@ from data_utils.ShapeNetDataLoader import PartNormalDataset
 import yaml  
   
 # 读取YAML文件  
-with open('config.yaml', 'r') as file:  
+with open('config.yaml', 'r', encoding='utf-8') as file:  
     config = yaml.safe_load(file)  
   
 # 提取字段  
@@ -59,8 +59,9 @@ def parse_args():
     parser = argparse.ArgumentParser('Model')
     parser.add_argument('--model', type=str, default='pointnet_part_seg', help='model name')
     parser.add_argument('--batch_size', type=int, default=16, help='batch Size during training')
-    parser.add_argument('--epoch', default=2, type=int, help='epoch to run')
-    parser.add_argument('--learning_rate', default=0.001, type=float, help='initial learning rate')
+    parser.add_argument('--epoch', default=1, type=int, help='epoch to run')
+    parser.add_argument('--learning_rate', default=0.001, type=float, help='initial learning rate')     # default=0.001
+    parser.add_argument('--momentum', type=float, default=0.9, help='momentum for SGD')
     parser.add_argument('--gpu', type=str, default='0', help='specify GPU devices')
     parser.add_argument('--optimizer', type=str, default='Adam', help='Adam or SGD')
     parser.add_argument('--log_dir', type=str, default=None, help='log path')
@@ -129,6 +130,10 @@ def main(args):
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     device = torch.device("cuda" if torch.cuda.is_available() and args.gpu != '-1' else "cpu")
+    if torch.cuda.is_available():
+        print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
+        print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")  # 输出第一个CUDA设备的名称
+        print(f"Let's use { torch.cuda.device_count()} GPUs!")
 
     classifier = MODEL.get_model(num_part, normal_channel=args.normal).to(device)
     criterion = MODEL.get_loss().to(device)
@@ -205,7 +210,7 @@ def main(args):
             points = points.data.numpy()
             points[:, :, 0:3] = provider.random_scale_point_cloud(points[:, :, 0:3])
             points[:, :, 0:3] = provider.shift_point_cloud(points[:, :, 0:3])
-            points = torch.tensor(points, dtype=torch.float64)
+            points = torch.Tensor(points)
             points, label, target = points.float().to(device), label.long().to(device), target.long().to(device)
             # points, label, target = points.float().cuda(), label.long().cuda(), target.long().cuda()
             points = points.transpose(2, 1)
@@ -285,7 +290,7 @@ def main(args):
             mean_shape_ious = np.mean(list(shape_ious.values()))
             test_metrics['accuracy'] = total_correct / float(total_seen)
             test_metrics['class_avg_accuracy'] = np.mean(
-                np.array(total_correct_class) / np.array(total_seen_class, dtype=np.float))
+                np.array(total_correct_class) / np.array(total_seen_class, dtype=np.float64))
             for cat in sorted(shape_ious.keys()):
                 log_string('eval mIoU of %s %f' % (cat + ' ' * (14 - len(cat)), shape_ious[cat]))
             test_metrics['class_avg_iou'] = mean_shape_ious
@@ -324,3 +329,5 @@ def main(args):
 if __name__ == '__main__':
     args = parse_args()
     main(args)
+
+

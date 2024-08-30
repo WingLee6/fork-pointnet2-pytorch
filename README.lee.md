@@ -35,3 +35,8 @@ The size of test data is 2468
 Test Instance Accuracy: 0.776618, Class Accuracy: 0.679727
 ```
 
+## 分割训练
+```bash
+python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg
+```
+

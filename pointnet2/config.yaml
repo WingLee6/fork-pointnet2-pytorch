@@ -1,10 +1,18 @@
 # config.yaml
 
-project_base_dir: '/Users/lee/GitProjects/fork-pointnet2-pytorch/pointnet2'  # 项目根目录的绝对路径
+# project_base_dir: '/Users/lee/GitProjects/fork-pointnet2-pytorch/pointnet2'  # 项目根目录的绝对路径
+project_base_dir: 'E:\GitProjects\fork-pointnet2-pytorch\pointnet2'  # 项目根目录的绝对路径
 
+# Mac地址
+# dataset:
+#   ModelNet_path: /Users/lee/Datasets/PointCloudsDatasets/modelnet40_normal_resampled/modelnet40_normal_resampled
+#   ShapeNet_path: /Users/lee/Datasets/PointCloudsDatasets/shapenetcore_partanno_segmentation_benchmark_v0_normal/data/shapenetcore_partanno_segmentation_benchmark_v0_normal
+#   S3DIS_path: /Users/lee/Datasets/PointCloudsDatasets/S3DIS/Stanford3dDataset_v1.2_Aligned_Version
+
+# Windows地址
 dataset:
   ModelNet_path: /Users/lee/Datasets/PointCloudsDatasets/modelnet40_normal_resampled/modelnet40_normal_resampled
-  ShapeNet_path: /Users/lee/Datasets/PointCloudsDatasets/shapenetcore_partanno_segmentation_benchmark_v0_normal/data/shapenetcore_partanno_segmentation_benchmark_v0_normal
+  ShapeNet_path: F:\shapenetcore_partanno_segmentation_benchmark_v0_normal\data\shapenetcore_partanno_segmentation_benchmark_v0_normal
   S3DIS_path: /Users/lee/Datasets/PointCloudsDatasets/S3DIS/Stanford3dDataset_v1.2_Aligned_Version
 
 
