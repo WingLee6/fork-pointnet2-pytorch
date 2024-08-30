@@ -12,6 +12,17 @@ from tqdm import tqdm
 import sys
 import importlib
 
+import yaml  
+  
+# 读取YAML文件  
+with open('config.yaml', 'r') as file:  
+    config = yaml.safe_load(file)  
+  
+# 提取字段  
+ROOT_DIR = config['project_base_dir']  
+ModelNet_path = config['dataset']['ModelNet_path'] 
+
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = BASE_DIR
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
@@ -42,7 +53,10 @@ def test(model, loader, num_class=40, vote_num=1):
             points, target = points.cuda(), target.cuda()
 
         points = points.transpose(2, 1)
-        vote_pool = torch.zeros(target.size()[0], num_class).cuda()
+        if not args.use_cpu:
+            vote_pool = torch.zeros(target.size()[0], num_class).cuda()
+        else:
+            vote_pool = torch.zeros(target.size()[0], num_class)
 
         for _ in range(vote_num):
             pred, _ = classifier(points)
@@ -88,7 +102,7 @@ def main(args):
 
     '''DATA LOADING'''
     log_string('Load dataset ...')
-    data_path = 'data/modelnet40_normal_resampled/'
+    data_path = ModelNet_path
 
     test_dataset = ModelNetDataLoader(root=data_path, args=args, split='test', process_data=False)
     testDataLoader = torch.utils.data.DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False, num_workers=10)
