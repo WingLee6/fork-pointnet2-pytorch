@@ -164,11 +164,18 @@ def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     # 检查是否有可用的CUDA设备, 并设置计算设备（GPU或CPU）
     device = torch.device("cuda" if torch.cuda.is_available() and args.gpu != '-1' else "cpu")
+<<<<<<< Updated upstream
     # 如果CUDA可用, 打印当前使用的CUDA设备信息
     if torch.cuda.is_available():
         print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
         print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")         # 输出第一个CUDA设备的名称
         print(f"Let's use { torch.cuda.device_count()} GPUs!")              # 输出CUDA设备的数量
+=======
+    if torch.cuda.is_available():
+        print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
+        print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")  # 输出第一个CUDA设备的名称
+        print(f"Let's use { torch.cuda.device_count()} GPUs!")
+>>>>>>> Stashed changes
 
     # 使用导入的模型定义分类器, 并将其移动到计算设备（GPU或CPU）
     classifier = MODEL.get_model(num_part, normal_channel=args.normal).to(device)
