@@ -11,6 +11,7 @@ class S3DISDataset(Dataset):
         self.num_point = num_point
         self.block_size = block_size
         self.transform = transform
+        print(os.listdir(data_root))
         rooms = sorted(os.listdir(data_root))
         rooms = [room for room in rooms if 'Area_' in room]
         if split == 'train':

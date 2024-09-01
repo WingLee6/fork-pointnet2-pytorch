@@ -2,12 +2,21 @@ import numpy as np
 import glob
 import os
 import sys
+import yaml  
+  
+# 读取YAML文件  
+with open('config.yaml', 'r', encoding='utf-8') as file:  
+    config = yaml.safe_load(file)  
+  
+# 提取字段  
+ROOT_DIR = config['project_base_dir']  
+S3DIS_path = config['dataset']['S3DIS_path'] 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = os.path.dirname(BASE_DIR)
+# ROOT_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(BASE_DIR)
 
-DATA_PATH = os.path.join(ROOT_DIR, 'data','s3dis', 'Stanford3dDataset_v1.2_Aligned_Version')
+DATA_PATH = S3DIS_path
 g_classes = [x.rstrip() for x in open(os.path.join(BASE_DIR, 'meta/class_names.txt'))]
 g_class2label = {cls: i for i,cls in enumerate(g_classes)}
 g_class2color = {'ceiling':	[0,255,0],
@@ -67,8 +76,10 @@ def collect_point_label(anno_path, out_filename, file_format='txt'):
                            data_label[i,3], data_label[i,4], data_label[i,5],
                            data_label[i,6]))
         fout.close()
+        print('Saved collected points to %s' % (out_filename))
     elif file_format=='numpy':
         np.save(out_filename, data_label)
+        print('Saved collected points to %s' % (out_filename))
     else:
         print('ERROR!! Unknown file format: %s, please use txt or numpy.' % \
             (file_format))

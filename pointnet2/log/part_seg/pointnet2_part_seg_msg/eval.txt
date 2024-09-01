@@ -1,0 +1,30 @@
+2024-08-31 07:13:33,977 - Model - INFO - PARAMETER ...
+2024-08-31 07:13:33,977 - Model - INFO - Namespace(batch_size=24, gpu='0', log_dir='pointnet2_part_seg_msg', normal=True, num_point=2048, num_votes=3)
+2024-08-31 07:15:36,152 - Model - INFO - PARAMETER ...
+2024-08-31 07:15:36,153 - Model - INFO - Namespace(batch_size=24, gpu='0', log_dir='pointnet2_part_seg_msg', normal=True, num_point=2048, num_votes=3)
+2024-08-31 07:15:51,227 - Model - INFO - PARAMETER ...
+2024-08-31 07:15:51,227 - Model - INFO - Namespace(batch_size=24, gpu='0', log_dir='pointnet2_part_seg_msg', normal=True, num_point=2048, num_votes=3)
+2024-08-31 07:15:51,415 - Model - INFO - The number of test data is: 2874
+2024-08-31 07:21:34,490 - Model - INFO - PARAMETER ...
+2024-08-31 07:21:34,491 - Model - INFO - Namespace(batch_size=24, gpu='0', log_dir='pointnet2_part_seg_msg', normal=True, num_point=2048, num_votes=3)
+2024-08-31 07:21:34,689 - Model - INFO - The number of test data is: 2874
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Airplane       0.732163
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Bag            0.694409
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Cap            0.754093
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Car            0.681991
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Chair          0.876153
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Earphone       0.660840
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Guitar         0.886131
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Knife          0.827717
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Lamp           0.769795
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Laptop         0.951175
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Motorbike      0.250464
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Mug            0.874328
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Pistol         0.716885
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Rocket         0.436131
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Skateboard     0.642898
+2024-08-31 07:24:56,987 - Model - INFO - eval mIoU of Table          0.786317
+2024-08-31 07:24:56,987 - Model - INFO - Accuracy is: 0.91218
+2024-08-31 07:24:56,987 - Model - INFO - Class avg accuracy is: 0.71891
+2024-08-31 07:24:56,987 - Model - INFO - Class avg mIOU is: 0.72134
+2024-08-31 07:24:56,987 - Model - INFO - Inctance avg mIOU is: 0.79235

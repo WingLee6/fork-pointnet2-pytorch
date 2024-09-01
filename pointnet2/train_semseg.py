@@ -17,8 +17,16 @@ import provider
 import numpy as np
 import time
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = BASE_DIR
+import yaml  
+  
+# 读取YAML文件  
+with open('config.yaml', 'r', encoding='utf-8') as file:  
+    config = yaml.safe_load(file)  
+  
+# 提取字段  
+ROOT_DIR = config['project_base_dir']  
+S3DIS_path = config['dataset']['S3DIS_path'] 
+
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
 classes = ['ceiling', 'floor', 'wall', 'beam', 'column', 'window', 'door', 'table', 'chair', 'sofa', 'bookcase',
@@ -59,6 +67,11 @@ def main(args):
 
     '''HYPER PARAMETER'''
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
+    device = torch.device("cuda" if torch.cuda.is_available() and args.gpu != '-1' else "cpu")
+    if torch.cuda.is_available():
+        print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
+        print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")  # 输出第一个CUDA设备的名称
+        print(f"Let's use { torch.cuda.device_count()} GPUs!")
 
     '''CREATE DIR'''
     timestr = str(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M'))
@@ -88,7 +101,7 @@ def main(args):
     log_string('PARAMETER ...')
     log_string(args)
 
-    root = 'data/stanford_indoor3d/'
+    root = S3DIS_path
     NUM_CLASSES = 13
     NUM_POINT = args.npoint
     BATCH_SIZE = args.batch_size
@@ -103,7 +116,7 @@ def main(args):
                                                   worker_init_fn=lambda x: np.random.seed(x + int(time.time())))
     testDataLoader = torch.utils.data.DataLoader(TEST_DATASET, batch_size=BATCH_SIZE, shuffle=False, num_workers=10,
                                                  pin_memory=True, drop_last=True)
-    weights = torch.Tensor(TRAIN_DATASET.labelweights).cuda()
+    weights = torch.Tensor(TRAIN_DATASET.labelweights).to(device)
 
     log_string("The number of training data is: %d" % len(TRAIN_DATASET))
     log_string("The number of test data is: %d" % len(TEST_DATASET))
@@ -113,8 +126,9 @@ def main(args):
     shutil.copy('models/%s.py' % args.model, str(experiment_dir))
     shutil.copy('models/pointnet2_utils.py', str(experiment_dir))
 
-    classifier = MODEL.get_model(NUM_CLASSES).cuda()
-    criterion = MODEL.get_loss().cuda()
+
+    classifier = MODEL.get_model(NUM_CLASSES).to(device)
+    criterion = MODEL.get_loss().to(device)
     classifier.apply(inplace_relu)
 
     def weights_init(m):
@@ -183,7 +197,7 @@ def main(args):
             points = points.data.numpy()
             points[:, :, :3] = provider.rotate_point_cloud_z(points[:, :, :3])
             points = torch.Tensor(points)
-            points, target = points.float().cuda(), target.long().cuda()
+            points, target = points.float().cuda(), target.long().to(device)
             points = points.transpose(2, 1)
 
             seg_pred, trans_feat = classifier(points)
@@ -231,7 +245,7 @@ def main(args):
             for i, (points, target) in tqdm(enumerate(testDataLoader), total=len(testDataLoader), smoothing=0.9):
                 points = points.data.numpy()
                 points = torch.Tensor(points)
-                points, target = points.float().cuda(), target.long().cuda()
+                points, target = points.float().to(device), target.long().to(device)
                 points = points.transpose(2, 1)
 
                 seg_pred, trans_feat = classifier(points)

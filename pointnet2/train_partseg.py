@@ -82,85 +82,127 @@ def main(args):
     '''HYPER PARAMETER'''
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
-    '''CREATE DIR'''
+    '''
+    创建相关目录
+    '''
+    # 获取当前时间的字符串表示形式, 格式为 '年-月-日_时-分'
     timestr = str(datetime.datetime.now().strftime('%Y-%m-%d_%H-%M'))
+
+    # 创建一个存放日志文件的目录 './log/'
     exp_dir = Path('./log/')
     exp_dir.mkdir(exist_ok=True)
+
+    # 在 './log/' 目录下创建一个名为 'part_seg' 的子目录, 用于存放分割任务的日志
     exp_dir = exp_dir.joinpath('part_seg')
     exp_dir.mkdir(exist_ok=True)
+
+    # 如果用户没有指定日志目录, 则使用时间戳作为日志目录名称
     if args.log_dir is None:
         exp_dir = exp_dir.joinpath(timestr)
     else:
+        # 如果用户指定了日志目录, 则使用用户指定的目录名
         exp_dir = exp_dir.joinpath(args.log_dir)
+
+    # 创建日志目录（时间戳或用户指定的目录）
     exp_dir.mkdir(exist_ok=True)
+
+    # 在日志目录下创建一个 'checkpoints/' 子目录, 用于保存模型的检查点
     checkpoints_dir = exp_dir.joinpath('checkpoints/')
     checkpoints_dir.mkdir(exist_ok=True)
+
+    # 在日志目录下创建一个 'logs/' 子目录, 用于保存训练和测试的日志文件
     log_dir = exp_dir.joinpath('logs/')
     log_dir.mkdir(exist_ok=True)
 
-    '''LOG'''
+    '''
+    日志设置
+    '''
     args = parse_args()
+    # 创建一个名为 "Model" 的日志记录器
     logger = logging.getLogger("Model")
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.INFO)   # 设置日志记录器的级别为 INFO
+    # 定义日志格式, 包括时间、日志器名称、日志级别和消息内容
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    # 创建文件处理器, 用于将日志记录到指定的文件中
     file_handler = logging.FileHandler('%s/%s.txt' % (log_dir, args.model))
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-    log_string('PARAMETER ...')
+    file_handler.setLevel(logging.INFO)     # 设置文件处理器的日志级别为 INFO
+    file_handler.setFormatter(formatter)    # 将格式应用到文件处理器
+    logger.addHandler(file_handler)         # 将文件处理器添加到日志记录器
+
+    # 记录一些基本信息
+    log_string('PARAMETER ...')    
+    # 记录命令行参数 
     log_string(args)
 
-    # root = 'data/shapenetcore_partanno_segmentation_benchmark_v0_normal/'
+    # 指定数据集的根目录
     root = ShapeNet_path
 
+    # 加载训练数据集
     TRAIN_DATASET = PartNormalDataset(root=root, npoints=args.npoint, split='trainval', normal_channel=args.normal)
     trainDataLoader = torch.utils.data.DataLoader(TRAIN_DATASET, batch_size=args.batch_size, shuffle=True, num_workers=10, drop_last=True)
     TEST_DATASET = PartNormalDataset(root=root, npoints=args.npoint, split='test', normal_channel=args.normal)
     testDataLoader = torch.utils.data.DataLoader(TEST_DATASET, batch_size=args.batch_size, shuffle=False, num_workers=10)
+    # 记录训练集和测试集的数据量
     log_string("The number of training data is: %d" % len(TRAIN_DATASET))
     log_string("The number of test data is: %d" % len(TEST_DATASET))
 
-    num_classes = 16
-    num_part = 50
+    # 设置分类的类别数和分割的部分数
+    num_classes = 16    # 数据集中类别的数量
+    num_part = 50       # 每个对象可能的分割部分数
 
-    '''MODEL LOADING'''
+    '''
+    模型加载
+    '''
+    # 动态导入指定的模型模块
     MODEL = importlib.import_module(args.model)
+    # 复制模型代码文件到实验目录, 方便后续查看和重现实验
     shutil.copy('models/%s.py' % args.model, str(exp_dir))
     shutil.copy('models/pointnet2_utils.py', str(exp_dir))
 
+    # 设置CUDA可见的设备（指定使用的GPU）, 根据命令行参数设置
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
+    # 检查是否有可用的CUDA设备, 并设置计算设备（GPU或CPU）
     device = torch.device("cuda" if torch.cuda.is_available() and args.gpu != '-1' else "cpu")
+    # 如果CUDA可用, 打印当前使用的CUDA设备信息
     if torch.cuda.is_available():
         print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
-        print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")  # 输出第一个CUDA设备的名称
-        print(f"Let's use { torch.cuda.device_count()} GPUs!")
+        print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")         # 输出第一个CUDA设备的名称
+        print(f"Let's use { torch.cuda.device_count()} GPUs!")              # 输出CUDA设备的数量
 
+    # 使用导入的模型定义分类器, 并将其移动到计算设备（GPU或CPU）
     classifier = MODEL.get_model(num_part, normal_channel=args.normal).to(device)
+    # 使用导入的模型定义损失函数, 并将其移动到计算设备
     criterion = MODEL.get_loss().to(device)
-    # points, label, target = points.float().to(device), label.long().to(device), target.long().to(device)
-
-    # classifier = MODEL.get_model(num_part, normal_channel=args.normal).cuda()
-    # criterion = MODEL.get_loss().cuda()
+    # 为分类器的所有层应用inplace ReLU激活函数
     classifier.apply(inplace_relu)
 
+    # 定义一个用于初始化权重的函数
     def weights_init(m):
         classname = m.__class__.__name__
+        # 如果层的类名中包含 'Conv2d', 则使用 Xavier 正态分布初始化卷积层的权重, 并将偏置设置为 0
         if classname.find('Conv2d') != -1:
             torch.nn.init.xavier_normal_(m.weight.data)
             torch.nn.init.constant_(m.bias.data, 0.0)
+        # 如果层的类名中包含 'Linear', 则使用 Xavier 正态分布初始化全连接层的权重, 并将偏置设置为 0
         elif classname.find('Linear') != -1:
             torch.nn.init.xavier_normal_(m.weight.data)
             torch.nn.init.constant_(m.bias.data, 0.0)
-
+    # 尝试加载预训练模型
     try:
-        checkpoint = torch.load(str(exp_dir) + '/checkpoints/best_model.pth')
-        start_epoch = checkpoint['epoch']
-        classifier.load_state_dict(checkpoint['model_state_dict'])
-        log_string('Use pretrain model')
+        # 加载预训练模型的检查点
+        # pre_model_path = os.path.join(str(exp_dir) + '/checkpoints/best_model.pth')
+        pre_model_path = '/Users/lee/GitProjects/fork-pointnet2-pytorch/pointnet2/log/part_seg/pointnet2_part_seg_msg/checkpoints/best_model.pth'
+        print('Use pretrain model: ' + pre_model_path)
+        checkpoint = torch.load(pre_model_path)
+        start_epoch = checkpoint['epoch']                               # 加载预训练模型的检查点
+        classifier.load_state_dict(checkpoint['model_state_dict'])      # 加载模型的权重和偏置
+        log_string('Use pretrain model')                                # 记录日志, 表示使用了预训练模型
     except:
+        # 如果没有找到预训练模型，从头开始训练
         log_string('No existing model, starting training from scratch...')
-        start_epoch = 0
-        classifier = classifier.apply(weights_init)
+        start_epoch = 0                                 # 从头开始训练    
+        classifier = classifier.apply(weights_init)     # 对模型应用自定义的权重初始化函数
 
     if args.optimizer == 'Adam':
         optimizer = torch.optim.Adam(

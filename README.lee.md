@@ -35,8 +35,35 @@ The size of test data is 2468
 Test Instance Accuracy: 0.776618, Class Accuracy: 0.679727
 ```
 
-## 分割训练
-```bash
-python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg
-```
+## 分割复现
+### Mac命令行运行
+1. 训练
+    ```bash
+    python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1  
+    ```
+    > `--gpu -1`为用cpu运行
 
+2. 测试
+    ```bash
+    python test_partseg.py --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1
+    ```
+
+3. 单点测试
+    ```bash
+    python test_partseg_single.py --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1 --idx 100
+    ```
+    > `--idx`为测试点的索引号，范围为0-2467
+
+
+
+
+## 可视化
+### Using show3d_balls.py
+```
+## build C++ code for visualization
+cd visualizer
+bash build.sh 
+## 将编译出一个/visualizer/render_balls_so.so 程序
+## run one example 
+python show3d_balls.py
+```
