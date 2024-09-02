@@ -31,10 +31,25 @@ ShapeNet_path = config['dataset']['ShapeNet_path']
  
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
-seg_classes = {'Earphone': [16, 17, 18], 'Motorbike': [30, 31, 32, 33, 34, 35], 'Rocket': [41, 42, 43],
-               'Car': [8, 9, 10, 11], 'Laptop': [28, 29], 'Cap': [6, 7], 'Skateboard': [44, 45, 46], 'Mug': [36, 37],
-               'Guitar': [19, 20, 21], 'Bag': [4, 5], 'Lamp': [24, 25, 26, 27], 'Table': [47, 48, 49],
-               'Airplane': [0, 1, 2, 3], 'Pistol': [38, 39, 40], 'Chair': [12, 13, 14, 15], 'Knife': [22, 23]}
+seg_classes = {
+    # 'Earphone': [16, 17, 18], 
+    # 'Motorbike': [30, 31, 32, 33, 34, 35], 
+    # 'Rocket': [41, 42, 43],
+    # 'Car': [8, 9, 10, 11], 
+    # 'Laptop': [28, 29], 
+    # 'Cap': [6, 7], 
+    # 'Skateboard': [44, 45, 46], 
+    # 'Mug': [36, 37],
+    # 'Guitar': [19, 20, 21], 
+    # 'Bag': [4, 5], 
+    # 'Lamp': [24, 25, 26, 27], 
+    # 'Table': [47, 48, 49],
+    # 'Airplane': [0, 1, 2, 3],
+    # 'Pistol': [38, 39, 40], 
+    # 'Chair': [12, 13, 14, 15], 
+    # 'Knife': [22, 23]
+    'Workpiece': [0, 1, 2]
+    }
 seg_label_to_cat = {}  # {0:Airplane, 1:Airplane, ...49:Table}
 
 for cat in seg_classes.keys():
@@ -49,6 +64,8 @@ def inplace_relu(m):
 
 def to_categorical(y, num_classes):
     """ 1-hot encodes a tensor """
+    # print(f"y: {y}")
+    # print(f"num_classes: {num_classes}")
     new_y = torch.eye(num_classes)[y.cpu().data.numpy(),]
     if (y.is_cuda):
         return new_y.cuda()
@@ -58,8 +75,8 @@ def to_categorical(y, num_classes):
 def parse_args():
     parser = argparse.ArgumentParser('Model')
     parser.add_argument('--model', type=str, default='pointnet_part_seg', help='model name')
-    parser.add_argument('--batch_size', type=int, default=16, help='batch Size during training')
-    parser.add_argument('--epoch', default=1, type=int, help='epoch to run')
+    parser.add_argument('--batch_size', type=int, default=8, help='batch Size during training')
+    parser.add_argument('--epoch', default=100, type=int, help='epoch to run')
     parser.add_argument('--learning_rate', default=0.001, type=float, help='initial learning rate')     # default=0.001
     parser.add_argument('--momentum', type=float, default=0.9, help='momentum for SGD')
     parser.add_argument('--gpu', type=str, default='0', help='specify GPU devices')
@@ -149,7 +166,7 @@ def main(args):
 
     # 设置分类的类别数和分割的部分数
     num_classes = 16    # 数据集中类别的数量
-    num_part = 50       # 每个对象可能的分割部分数
+    num_part = 7       # 每个对象可能的分割部分数
 
     '''
     模型加载
@@ -164,18 +181,11 @@ def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     # 检查是否有可用的CUDA设备, 并设置计算设备（GPU或CPU）
     device = torch.device("cuda" if torch.cuda.is_available() and args.gpu != '-1' else "cpu")
-<<<<<<< Updated upstream
     # 如果CUDA可用, 打印当前使用的CUDA设备信息
     if torch.cuda.is_available():
         print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
         print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")         # 输出第一个CUDA设备的名称
         print(f"Let's use { torch.cuda.device_count()} GPUs!")              # 输出CUDA设备的数量
-=======
-    if torch.cuda.is_available():
-        print(f"Current CUDA Device Index: {torch.cuda.current_device()}")  # 输出当前使用的CUDA设备索引
-        print(f"CUDA Device Name: {torch.cuda.get_device_name(0)}")  # 输出第一个CUDA设备的名称
-        print(f"Let's use { torch.cuda.device_count()} GPUs!")
->>>>>>> Stashed changes
 
     # 使用导入的模型定义分类器, 并将其移动到计算设备（GPU或CPU）
     classifier = MODEL.get_model(num_part, normal_channel=args.normal).to(device)
@@ -198,9 +208,9 @@ def main(args):
     # 尝试加载预训练模型
     try:
         # 加载预训练模型的检查点
-        # pre_model_path = os.path.join(str(exp_dir) + '/checkpoints/best_model.pth')
-        pre_model_path = '/Users/lee/GitProjects/fork-pointnet2-pytorch/pointnet2/log/part_seg/pointnet2_part_seg_msg/checkpoints/best_model.pth'
-        print('Use pretrain model: ' + pre_model_path)
+        pre_model_path = os.path.join(str(exp_dir) + '/checkpoints/best_model.pth')
+        # pre_model_path = '/Users/lee/GitProjects/fork-pointnet2-pytorch/pointnet2/log/part_seg/pointnet2_part_seg_msg/checkpoints/best_model.pth'
+        # print('Use pretrain model: ' + pre_model_path)
         checkpoint = torch.load(pre_model_path)
         start_epoch = checkpoint['epoch']                               # 加载预训练模型的检查点
         classifier.load_state_dict(checkpoint['model_state_dict'])      # 加载模型的权重和偏置

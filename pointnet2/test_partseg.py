@@ -106,14 +106,17 @@ def main(args):
     root = ShapeNet_path  # 数据集的根目录路径，从配置文件中读取
 
     # 加载测试数据集
-    TEST_DATASET = PartNormalDataset(root=root, npoints=args.num_point, split='test', normal_channel=args.normal)
+    TEST_DATASET = PartNormalDataset(root=root, npoints=args.num_point, 
+                                     split='test', normal_channel=args.normal)
     # 创建数据加载器，用于批量加载测试数据
-    testDataLoader = torch.utils.data.DataLoader(TEST_DATASET, batch_size=args.batch_size, shuffle=False, num_workers=4)
+    testDataLoader = torch.utils.data.DataLoader(TEST_DATASET, 
+                                                 batch_size=args.batch_size, 
+                                                 shuffle=False, num_workers=4)
     # 记录测试数据的数量
     log_string("The number of test data is: %d" % len(TEST_DATASET))
     
     num_classes = 16  # 数据集中有16个类别
-    num_part = 50  # 总共有50个部件类别
+    num_part = 7  # 总共有50个部件类别
 
     '''MODEL LOADING'''
     # 获取实验目录中 logs 文件夹下的模型名称（假设只有一个模型文件）
@@ -151,6 +154,9 @@ def main(args):
 
         # 遍历测试数据集，进行批量预测
         for batch_id, (points, label, target) in tqdm(enumerate(testDataLoader), total=len(testDataLoader), smoothing=0.9):
+            print("pointcloud shape: ", points.shape)
+            print("label shape: ", label.shape)
+            print("target shape: ", target.shape)
             # 获取当前批次的数据维度
             batchsize, num_point, _ = points.size()
             cur_batch_size, NUM_POINT, _ = points.size()

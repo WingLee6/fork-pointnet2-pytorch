@@ -1,0 +1,96 @@
+2024-09-01 08:42:29,994 - Model - INFO - PARAMETER ...
+2024-09-01 08:42:29,994 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 08:42:30,388 - Model - INFO - The number of test data is: 2874
+2024-09-01 08:44:41,284 - Model - INFO - PARAMETER ...
+2024-09-01 08:44:41,284 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 08:44:41,577 - Model - INFO - The number of test data is: 2874
+2024-09-01 10:07:46,188 - Model - INFO - eval mIoU of Airplane       0.686562
+2024-09-01 10:07:46,194 - Model - INFO - eval mIoU of Bag            0.461490
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Cap            0.368348
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Car            0.658579
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Chair          0.829704
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Earphone       0.576181
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Guitar         0.846115
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Knife          0.837767
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Lamp           0.767413
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Laptop         0.952828
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Motorbike      0.252174
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Mug            0.745809
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Pistol         0.582019
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Rocket         0.226697
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Skateboard     0.582472
+2024-09-01 10:07:46,195 - Model - INFO - eval mIoU of Table          0.768681
+2024-09-01 10:07:46,196 - Model - INFO - Accuracy is: 0.90138
+2024-09-01 10:07:46,196 - Model - INFO - Class avg accuracy is: 0.66911
+2024-09-01 10:07:46,197 - Model - INFO - Class avg mIOU is: 0.63393
+2024-09-01 10:07:46,197 - Model - INFO - Inctance avg mIOU is: 0.75867
+2024-09-01 10:23:34,503 - Model - INFO - PARAMETER ...
+2024-09-01 10:23:34,503 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 10:23:34,743 - Model - INFO - The number of test data is: 2874
+2024-09-01 10:31:31,884 - Model - INFO - PARAMETER ...
+2024-09-01 10:31:31,885 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 10:31:32,183 - Model - INFO - The number of test data is: 2874
+2024-09-01 11:37:29,152 - Model - INFO - eval mIoU of Airplane       0.692898
+2024-09-01 11:37:29,159 - Model - INFO - eval mIoU of Bag            0.465913
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Cap            0.366157
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Car            0.655195
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Chair          0.833580
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Earphone       0.598089
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Guitar         0.840530
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Knife          0.837986
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Lamp           0.771022
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Laptop         0.953690
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Motorbike      0.252612
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Mug            0.734558
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Pistol         0.581956
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Rocket         0.227024
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Skateboard     0.578009
+2024-09-01 11:37:29,160 - Model - INFO - eval mIoU of Table          0.771409
+2024-09-01 11:37:29,162 - Model - INFO - Accuracy is: 0.90146
+2024-09-01 11:37:29,162 - Model - INFO - Class avg accuracy is: 0.66935
+2024-09-01 11:37:29,162 - Model - INFO - Class avg mIOU is: 0.63504
+2024-09-01 11:37:29,162 - Model - INFO - Inctance avg mIOU is: 0.76100
+2024-09-01 14:07:56,182 - Model - INFO - PARAMETER ...
+2024-09-01 14:07:56,182 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 14:07:56,961 - Model - INFO - The number of test data is: 2874
+2024-09-01 15:16:58,132 - Model - INFO - eval mIoU of Airplane       0.689973
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Bag            0.461701
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Cap            0.368367
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Car            0.660579
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Chair          0.830222
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Earphone       0.573970
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Guitar         0.844400
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Knife          0.846326
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Lamp           0.768269
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Laptop         0.953393
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Motorbike      0.251505
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Mug            0.739948
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Pistol         0.581129
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Rocket         0.225559
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Skateboard     0.576431
+2024-09-01 15:16:58,138 - Model - INFO - eval mIoU of Table          0.767854
+2024-09-01 15:16:58,140 - Model - INFO - Accuracy is: 0.90141
+2024-09-01 15:16:58,140 - Model - INFO - Class avg accuracy is: 0.66945
+2024-09-01 15:16:58,140 - Model - INFO - Class avg mIOU is: 0.63373
+2024-09-01 15:16:58,140 - Model - INFO - Inctance avg mIOU is: 0.75913
+2024-09-01 20:22:31,058 - Model - INFO - PARAMETER ...
+2024-09-01 20:22:31,059 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 20:22:31,788 - Model - INFO - The number of test data is: 2874
+2024-09-01 20:23:20,735 - Model - INFO - PARAMETER ...
+2024-09-01 20:23:20,735 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 20:23:20,879 - Model - INFO - The number of test data is: 2874
+2024-09-01 22:57:11,016 - Model - INFO - PARAMETER ...
+2024-09-01 22:57:11,017 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 22:57:11,326 - Model - INFO - The number of test data is: 2874
+2024-09-01 22:58:35,661 - Model - INFO - PARAMETER ...
+2024-09-01 22:58:35,662 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-01 22:58:36,162 - Model - INFO - The number of test data is: 2874
+2024-09-02 00:13:01,432 - Model - INFO - PARAMETER ...
+2024-09-02 00:13:01,432 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-02 00:13:01,728 - Model - INFO - The number of test data is: 2874
+2024-09-02 00:14:54,109 - Model - INFO - PARAMETER ...
+2024-09-02 00:14:54,109 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-02 00:14:54,405 - Model - INFO - The number of test data is: 2874
+2024-09-02 00:21:07,838 - Model - INFO - PARAMETER ...
+2024-09-02 00:21:07,838 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac', normal=True, num_votes=3)
+2024-09-02 00:21:08,147 - Model - INFO - The number of test data is: 2874

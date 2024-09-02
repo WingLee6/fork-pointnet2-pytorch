@@ -37,7 +37,6 @@ Test Instance Accuracy: 0.776618, Class Accuracy: 0.679727
 
 ## 分割复现
 ### Mac命令行运行
-<<<<<<< Updated upstream
 1. 训练
     ```bash
     python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1  
@@ -55,12 +54,10 @@ Test Instance Accuracy: 0.776618, Class Accuracy: 0.679727
     ```
     > `--idx`为测试点的索引号，范围为0-2467
 
-=======
 ```bash
 python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg --gpu -1
 ```
 > `--gpu -1`为用cpu运行
->>>>>>> Stashed changes
 
 
 
@@ -73,8 +70,4 @@ bash build.sh
 ## 将编译出一个/visualizer/render_balls_so.so 程序
 ## run one example 
 python show3d_balls.py
-<<<<<<< Updated upstream
 ```
-=======
-```
->>>>>>> Stashed changes
