@@ -1,0 +1,47 @@
+# config.yaml
+project_base_dir: '/Users/lee/GitProjects/fork-pointnet2-pytorch/detection_model_use'  # 项目根目录的绝对路径
+# project_base_dir: 'E:\GitProjects\fork-pointnet2-pytorch\pointnet2'  # 项目根目录的绝对路径
+
+
+# Mac地址
+dataset:
+  ModelNet_path: /Users/lee/Datasets/PointCloudsDatasets/modelnet40_normal_resampled/modelnet40_normal_resampled
+  # ShapeNet_path: /Volumes/data/Datasets/PointCloudsDatasets/ShapeNet_normal/data/shapenetcore_partanno_segmentation_benchmark_v0_normal
+  ShapeNet_path: /Volumes/data/Datasets/PointCloudsDatasets/ShapeNet_normal/data/shapenetcore_partanno_segmentation_benchmark_v0_normal_add_welding_workpiece
+  S3DIS_path: /Users/lee/Datasets/PointCloudsDatasets/S3DIS/Stanford3dDataset_v1.2_Aligned_Version
+
+# Windows地址
+# dataset:
+#   ModelNet_path: /Users/lee/Datasets/PointCloudsDatasets/modelnet40_normal_resampled/modelnet40_normal_resampled
+#   ShapeNet_path: F:\shapenetcore_partanno_segmentation_benchmark_v0_normal\data\shapenetcore_partanno_segmentation_benchmark_v0_normal
+#   S3DIS_path: /Users/lee/Datasets/PointCloudsDatasets/S3DIS/Stanford3dDataset_v1.2_Aligned_Version
+
+# linux地址
+# dataset:
+#   ModelNet_path: /root/autodl-fs/datasets/PointcloudData/modelnet40_normal_resampled
+#   ShapeNet_path: /root/autodl-fs/datasets/PointcloudData/shapenetcore_partanno_segmentation_benchmark_v0_normal
+#   S3DIS_path: /root/autodl-fs/datasets/PointcloudData/Stanford3dDataset_v1.2_Aligned_Version
+
+
+# log:
+#   base_dir: 'log/'  # 基础日志目录，相对于项目根目录
+#   experiment: 'classification'  # 实验目录名
+#   checkpoints: 'checkpoints/'  # 检查点目录名，相对于实验目录
+#   logs: 'logs/'  # 日志文件目录名，相对于实验目录
+
+# model:
+#   name: 'pointnet2_cls_ssg'  # 模型名称, 默认为pointnet_cls
+#   num_category: 40  # 类别数量
+
+# training:
+#   use_cpu: true  # 是否使用CPU
+#   gpu: '0'  # 指定GPU设备
+#   batch_size: 24  # 批量大小, 默认为24
+#   epoch: 2  # 训练轮数, 默认为200
+#   learning_rate: 0.001  # 学习率
+#   num_point: 1024  # 点的数量
+#   optimizer: 'Adam'  # 优化器
+#   decay_rate: 1e-4  # 权重衰减率
+#   use_normals: true  # 是否使用法向量, 默认为False
+#   process_data: false  # 是否离线处理数据
+#   use_uniform_sample: false  # 是否使用均匀采样

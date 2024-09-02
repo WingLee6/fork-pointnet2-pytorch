@@ -21,28 +21,14 @@ with open('config.yaml', 'r', encoding='utf-8') as file:
 # 提取字段  
 ROOT_DIR = config['project_base_dir']  
 ShapeNet_path = config['dataset']['ShapeNet_path'] 
+num_classes = config['BASE_INFO_PARTSEG']['num_classes']   # 类别数量
+num_part = config['BASE_INFO_PARTSEG']['num_part']         # 每个对象可能的分割部分数
+# 获取 seg_classes 字典
+seg_classes = config['BASE_INFO_PARTSEG'].get('seg_classes', {})
+# print('seg_classes: ' + str(seg_classes))    
 
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
-# 定义一个字典，映射每个类别名称到其对应的标签列表
-seg_classes = {
-    'Earphone': [16, 17, 18], 
-    'Motorbike': [30, 31, 32, 33, 34, 35], 
-    'Rocket': [41, 42, 43],
-    'Car': [8, 9, 10, 11], 
-    'Laptop': [28, 29], 
-    'Cap': [6, 7], 
-    'Skateboard': [44, 45, 46], 
-    'Mug': [36, 37],
-    'Guitar': [19, 20, 21], 
-    'Bag': [4, 5], 
-    'Lamp': [24, 25, 26, 27], 
-    'Table': [47, 48, 49],
-    'Airplane': [0, 1, 2, 3], 
-    'Pistol': [38, 39, 40], 
-    'Chair': [12, 13, 14, 15], 
-    'Knife': [22, 23]
-}
 
 # 创建一个字典，将每个标签映射到对应的类别名称
 seg_label_to_cat = {}  # 格式为 {标签: 类别名称}
@@ -114,9 +100,6 @@ def main(args):
                                                  shuffle=False, num_workers=4)
     # 记录测试数据的数量
     log_string("The number of test data is: %d" % len(TEST_DATASET))
-    
-    num_classes = 16  # 数据集中有16个类别
-    num_part = 7  # 总共有50个部件类别
 
     '''MODEL LOADING'''
     # 获取实验目录中 logs 文件夹下的模型名称（假设只有一个模型文件）
@@ -154,9 +137,9 @@ def main(args):
 
         # 遍历测试数据集，进行批量预测
         for batch_id, (points, label, target) in tqdm(enumerate(testDataLoader), total=len(testDataLoader), smoothing=0.9):
-            print("pointcloud shape: ", points.shape)
-            print("label shape: ", label.shape)
-            print("target shape: ", target.shape)
+            # print("pointcloud shape: ", points.shape)
+            # print("label shape: ", label.shape)
+            # print("target shape: ", target.shape)
             # 获取当前批次的数据维度
             batchsize, num_point, _ = points.size()
             cur_batch_size, NUM_POINT, _ = points.size()

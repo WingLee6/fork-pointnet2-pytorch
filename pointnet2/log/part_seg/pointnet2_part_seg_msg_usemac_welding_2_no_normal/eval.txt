@@ -1,0 +1,8 @@
+2024-09-02 16:49:50,883 - Model - INFO - PARAMETER ...
+2024-09-02 16:49:50,883 - Model - INFO - Namespace(batch_size=24, gpu='-1', num_point=2048, log_dir='pointnet2_part_seg_msg_usemac_welding_2_no_normal', normal=False, num_votes=3)
+2024-09-02 16:49:50,897 - Model - INFO - The number of test data is: 10
+2024-09-02 16:50:01,512 - Model - INFO - eval mIoU of Workpiece      0.006543
+2024-09-02 16:50:01,513 - Model - INFO - Accuracy is: 0.01963
+2024-09-02 16:50:01,513 - Model - INFO - Class avg accuracy is: nan
+2024-09-02 16:50:01,513 - Model - INFO - Class avg mIOU is: 0.00654
+2024-09-02 16:50:01,514 - Model - INFO - Inctance avg mIOU is: 0.00654

@@ -43,16 +43,22 @@ Test Instance Accuracy: 0.776618, Class Accuracy: 0.679727
     ```
     > `--gpu -1`为用cpu运行
 
+    + python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg_usemac_welding_2 --gpu -1
+    + python train_partseg.py --model pointnet2_part_seg_msg --log_dir pointnet2_part_seg_msg_usemac_welding_2_no_normal --gpu -1
+
 2. 测试
     ```bash
     python test_partseg.py --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1
     ```
+    1. python test_partseg.py --normal --log_dir pointnet2_part_seg_msg_usemac_welding_2 --gpu -1
+    2. python test_partseg.py --log_dir pointnet2_part_seg_msg_usemac_welding_2_no_normal --gpu -1
 
 3. 单点测试
     ```bash
-    python test_partseg_single.py --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1 --idx 100
+    python single_test_partseg.lee.py --normal --log_dir pointnet2_part_seg_msg_usemac_welding_2 --gpu -1 --point_cloud_file /Volumes/data/Datasets/PointCloudsDatasets/welding_workpiece_l515/data/label1.txt
     ```
-    > `--idx`为测试点的索引号，范围为0-2467
+    1. 
+    2. python single_test_partseg.lee.py --log_dir pointnet2_part_seg_msg_usemac_welding_2_no_normal --gpu -1 --point_cloud_file /Volumes/data/Datasets/PointCloudsDatasets/welding_workpiece_l515/data/label1.txt
 
 ```bash
 python train_partseg.py --model pointnet2_part_seg_msg --normal --log_dir pointnet2_part_seg_msg --gpu -1

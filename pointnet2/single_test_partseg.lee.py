@@ -4,12 +4,12 @@ Date: Nov 2019
 """
 import argparse
 import os
-from data_utils.ShapeNetDataLoader import PartNormalDataset
+# from data_utils.ShapeNetDataLoader import PartNormalDataset
 import torch
-import logging
+# import logging
 import sys
 import importlib
-from tqdm import tqdm
+# from tqdm import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
 import numpy as np
@@ -24,29 +24,14 @@ with open('config.yaml', 'r', encoding='utf-8') as file:
 # 提取字段  
 ROOT_DIR = config['project_base_dir']  
 ShapeNet_path = config['dataset']['ShapeNet_path'] 
+num_classes = config['BASE_INFO_PARTSEG']['num_classes']   # 类别数量
+num_part = config['BASE_INFO_PARTSEG']['num_part']         # 每个对象可能的分割部分数
+# 获取 seg_classes 字典, 映射每个类别名称到其对应的标签列表
+seg_classes = config['BASE_INFO_PARTSEG'].get('seg_classes', {})
+# print('seg_classes: ' + str(seg_classes))   
 
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
-# 定义一个字典，映射每个类别名称到其对应的标签列表
-seg_classes = {
-    # 'Earphone': [16, 17, 18], 
-    # 'Motorbike': [30, 31, 32, 33, 34, 35], 
-    # 'Rocket': [41, 42, 43],
-    # 'Car': [8, 9, 10, 11], 
-    # 'Laptop': [28, 29], 
-    # 'Cap': [6, 7], 
-    # 'Skateboard': [44, 45, 46], 
-    # 'Mug': [36, 37],
-    # 'Guitar': [19, 20, 21], 
-    # 'Bag': [4, 5], 
-    # 'Lamp': [24, 25, 26, 27], 
-    # 'Table': [47, 48, 49],
-    # 'Airplane': [0, 1, 2, 3], 
-    # 'Pistol': [38, 39, 40], 
-    # 'Chair': [12, 13, 14, 15], 
-    # 'Knife': [22, 23]
-    'Workpiece': [0, 1, 2]
-}
 
 # 创建一个字典，将每个标签映射到对应的类别名称
 seg_label_to_cat = {}  # 格式为 {标签: 类别名称}
@@ -126,15 +111,14 @@ def generate_random_point_cloud(batch_size=1, num_points=2048,
 
 def load_point_cloud_from_txt(file_path):
     """
-    从一个 .txt 文件中读取点云数据，并将其转换为 PyTorch 张量。
+    读取点云数据和其对应的分割标签。
 
     Parameters:
     - file_path: 点云数据文件的路径
 
     Returns:
-    - points: 点云数据，形状为 [num_points, num_features]，其中 num_features = 6
-    - normals: 法向量，形状为 [num_points, 3]
-    - labels: 标签，形状为 [num_points]
+    - points: 点云数据，形状为 [num_points, num_features]，其中 num_features = 3
+    - seg: 标签，形状为 [num_points]
     """
     # 读取文件内容
     data = np.loadtxt(file_path).astype(np.float32)  # 加载数据文件
@@ -159,7 +143,7 @@ def load_point_cloud_from_txt(file_path):
 
 
 
-def plot_3d_points(points: torch.Tensor, labels: np.ndarray):
+def plot_3d_points(points: np.ndarray, labels: np.ndarray):
     """
     绘制带有标签的三维点云图。
 
@@ -167,15 +151,12 @@ def plot_3d_points(points: torch.Tensor, labels: np.ndarray):
     - points: torch.Tensor, 形状为(N, 3)的三维坐标。
     - labels: np.ndarray, 形状为(N,)的标签数组。
     """
-    # 确保points是numpy数组
-    points_np = points.numpy()
-
     # 创建图形和3D坐标轴
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
     # 绘制三维散点图
-    scatter = ax.scatter(points_np[:, 0], points_np[:, 1], points_np[:, 2], c=labels, cmap='viridis')
+    scatter = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=labels, cmap='viridis')
 
     # 添加颜色条
     cbar = plt.colorbar(scatter)
@@ -188,6 +169,25 @@ def plot_3d_points(points: torch.Tensor, labels: np.ndarray):
 
     # 显示图形
     plt.show()
+
+def save_points_and_labels_to_txt(points: np.ndarray, labels: np.ndarray, filename='output.txt'):
+    """
+    将点云数据和分割标签保存到一个文本文件中。
+
+    参数:
+    - points: 点云数据，形状为 [num_points, num_features]
+    - labels: 标签，形状为 [num_points]
+    - filename: 保存文件的路径
+    """
+    # print("points shape: ", points.shape)
+    # print("labels shape: ", labels.shape)
+    # 合并点云数据和标签
+    points_and_labels_np = np.hstack((points, labels[:, np.newaxis]))
+
+    # 保存到文件
+    np.savetxt(filename, points_and_labels_np, fmt='%.6f', delimiter=' ', comments='')
+
+    print(f"数据已保存到 {filename}")
 
 
 def parse_args():
@@ -229,9 +229,9 @@ def main(args):
         if file_path.suffix.lower() in ['.txt']:
             # 从文件中读取点云数据
             points, label, target = load_point_cloud_from_txt(file_path)
-            print("pointcloud shape: ", points.shape)
-            print("label shape: ", label.shape)
-            print("target shape: ", target.shape)
+            # print("pointcloud shape: ", points.shape)
+            # print("label shape: ", label.shape)
+            # print("target shape: ", target.shape)
             points = torch.tensor(points)
             label = torch.tensor(label)
             target = torch.tensor(target)
@@ -241,23 +241,11 @@ def main(args):
             label = label.unsqueeze(0)  # 增加一个维度，使其形状为 [batch_size]
             target = target.unsqueeze(0)  # 增加一个维度，使其形状为 [batch_size, num_points]
 
-    print("pointcloud shape: ", points.shape)
-    print("label shape: ", label.shape)
-    print("target shape: ", target.shape)
-    cur_batch_size, NUM_POINT, _ = points.size()
-    # print('cur_batch_size:', cur_batch_size)
-    # print('NUM_POINT:', NUM_POINT)
-    # print('target:', target)
-    # print('target:', target.size())
-    # from collections import Counter
-    # # 统计每个值出现的次数
-    # target_unique_values = torch.unique(target)             # 不同的值
-    # target_num_part = target_unique_values.numel()          # 不同值的数量
+    # print("pointcloud shape: ", points.shape)
+    # print("label shape: ", label.shape)
+    # print("target shape: ", target.shape)
+    # cur_batch_size, NUM_POINT, _ = points.size()
 
-    # label_unique_values = torch.unique(label)               # 不同的值
-    # label_num_unique_values = label_unique_values.numel()   # 不同值的数量
-
-    
     num_classes = 16 # 数据集中有16个类别
     num_part = 7  # 总共有部件类别
 
@@ -301,33 +289,49 @@ def main(args):
         seg_pred = vote_pool / args.num_votes
 
         # 将预测结果从 GPU 转移到 CPU，并转换为 NumPy 数组
-        cur_pred_val = seg_pred.cpu().data.numpy()
-        cur_pred_val_logits = cur_pred_val  # 保留未处理的逻辑回归结果
-
-        # 初始化一个零矩阵用于存储最终的预测结果
-        cur_pred_val = np.zeros((cur_batch_size, NUM_POINT)).astype(np.int32)
+        cur_pred_val_logits = seg_pred.cpu().data.numpy()
 
         # 将目标标签从 GPU 转移到 CPU，并转换为 NumPy 数组
         target = target.cpu().data.numpy()
 
-        # 对每一个点云实例进行处理
-        # for i in range(cur_batch_size):
         # 获取当前实例的类别
         cat = seg_label_to_cat[target[0, 0]]
-        
+
         # 获取当前实例的预测逻辑回归结果
         logits = cur_pred_val_logits[0, :, :]
-        print('logits:', logits.shape)
+        # print('logits shape:', logits.shape)
 
-        # 对该实例进行预测，并根据类别的标签范围调整预测结果
-        cur_pred_val[0, :] = np.argmax(logits[:, seg_classes[cat]], 1) + seg_classes[cat][0]
-        # 打印预测的分割标签
-        print(f"点云实例的分割标签:")
-        print(cur_pred_val[0, :])
-        print(len(cur_pred_val[0, :]))
+        # 计算最终的分割标签并输出
+        cur_pred_val = np.argmax(logits[:, seg_classes[cat]], 1) + seg_classes[cat][0]
+        
+        # 打印详细的预测结果
+        print(f"\n预测结果: 类别 = {cat} (包含 {logits.shape[0]} 个点)")
+        # print(f"{'点索引':>8} | {'分割标签':>10}")
+        # print("-" * 21)
+        # for idx in range(min(10, len(cur_pred_val))):  # 仅打印前10个结果以简洁
+        #     print(f"{idx:>8} | {cur_pred_val[idx]:>10}")
+            
+        # # 如果点的数量较多，可以提示用户总数
+        # if len(cur_pred_val) > 10:
+        #     print(f"\n... (显示前10个结果，总共 {len(cur_pred_val)} 个点)\n")
+
+        # 也可以选择输出整体的统计信息
+        unique_labels, counts = np.unique(cur_pred_val, return_counts=True)
+        print("分割标签分布:")
+        for label, count in zip(unique_labels, counts):
+            print(f"标签 {label}: {count} 个点")
+    
+        # 改变点云数据维度
+        # torch.Size([1, 2048, 6]) -> 降维到 [2048, 6] -> 交换维度到 [6, 2048]
+        points_reshaped = points.squeeze(0).transpose(0, 1)
+        # 将点云数据转为np
+        points_np = points_reshaped.cpu().data.numpy()
+        
+        # 调用保存函数
+        save_points_and_labels_to_txt(points_np, cur_pred_val, 'points_and_labels.txt')
 
         # 点云可视化
-        plot_3d_points(points, cur_pred_val[0, :])
+        plot_3d_points(points_np, cur_pred_val)
 
 
 if __name__ == '__main__':
@@ -340,3 +344,4 @@ if __name__ == '__main__':
 # python single_test_partseg.lee.py --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1 --point_cloud_file /Volumes/data/Datasets/PointCloudsDatasets/ShapeNet_normal/data/shapenetcore_partanno_segmentation_benchmark_v0_normal/02954340/1fc6f3aebca014ab19ba010ddb4974fe.txt
 # python single_test_partseg.lee.py --normal --log_dir pointnet2_part_seg_msg_usemac --gpu -1 --point_cloud_file /Volumes/data/Datasets/PointCloudsDatasets/welding_workpiece_l515/data/label8.txt
 
+# python single_test_partseg.lee.py --normal --log_dir pointnet2_part_seg_msg_usemac_welding --gpu -1 --point_cloud_file /Volumes/data/Datasets/PointCloudsDatasets/welding_workpiece_l515/data/label8.txt

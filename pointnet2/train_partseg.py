@@ -27,29 +27,14 @@ with open('config.yaml', 'r', encoding='utf-8') as file:
 # 提取字段  
 ROOT_DIR = config['project_base_dir']  
 ShapeNet_path = config['dataset']['ShapeNet_path'] 
-
+num_classes = config['BASE_INFO_PARTSEG']['num_classes']   # 类别数量
+num_part = config['BASE_INFO_PARTSEG']['num_part']         # 每个对象可能的分割部分数
+# 获取 seg_classes 字典
+seg_classes = config['BASE_INFO_PARTSEG'].get('seg_classes', {})
+# print('seg_classes: ' + str(seg_classes))    
  
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 
-seg_classes = {
-    # 'Earphone': [16, 17, 18], 
-    # 'Motorbike': [30, 31, 32, 33, 34, 35], 
-    # 'Rocket': [41, 42, 43],
-    # 'Car': [8, 9, 10, 11], 
-    # 'Laptop': [28, 29], 
-    # 'Cap': [6, 7], 
-    # 'Skateboard': [44, 45, 46], 
-    # 'Mug': [36, 37],
-    # 'Guitar': [19, 20, 21], 
-    # 'Bag': [4, 5], 
-    # 'Lamp': [24, 25, 26, 27], 
-    # 'Table': [47, 48, 49],
-    # 'Airplane': [0, 1, 2, 3],
-    # 'Pistol': [38, 39, 40], 
-    # 'Chair': [12, 13, 14, 15], 
-    # 'Knife': [22, 23]
-    'Workpiece': [0, 1, 2]
-    }
 seg_label_to_cat = {}  # {0:Airplane, 1:Airplane, ...49:Table}
 
 for cat in seg_classes.keys():
@@ -75,8 +60,8 @@ def to_categorical(y, num_classes):
 def parse_args():
     parser = argparse.ArgumentParser('Model')
     parser.add_argument('--model', type=str, default='pointnet_part_seg', help='model name')
-    parser.add_argument('--batch_size', type=int, default=8, help='batch Size during training')
-    parser.add_argument('--epoch', default=100, type=int, help='epoch to run')
+    parser.add_argument('--batch_size', type=int, default=24, help='batch Size during training')
+    parser.add_argument('--epoch', default=301, type=int, help='epoch to run')
     parser.add_argument('--learning_rate', default=0.001, type=float, help='initial learning rate')     # default=0.001
     parser.add_argument('--momentum', type=float, default=0.9, help='momentum for SGD')
     parser.add_argument('--gpu', type=str, default='0', help='specify GPU devices')
@@ -165,8 +150,8 @@ def main(args):
     log_string("The number of test data is: %d" % len(TEST_DATASET))
 
     # 设置分类的类别数和分割的部分数
-    num_classes = 16    # 数据集中类别的数量
-    num_part = 7       # 每个对象可能的分割部分数
+    # num_classes = 16    # 数据集中类别的数量
+    # num_part = 7       # 每个对象可能的分割部分数
 
     '''
     模型加载
@@ -379,6 +364,7 @@ def main(args):
             best_class_avg_iou = test_metrics['class_avg_iou']
         if test_metrics['inctance_avg_iou'] > best_inctance_avg_iou:
             best_inctance_avg_iou = test_metrics['inctance_avg_iou']
+
         log_string('Best accuracy is: %.5f' % best_acc)
         log_string('Best class avg mIOU is: %.5f' % best_class_avg_iou)
         log_string('Best inctance avg mIOU is: %.5f' % best_inctance_avg_iou)

@@ -1,0 +1,139 @@
+2024-09-02 16:05:26,177 - Model - INFO - PARAMETER ...
+2024-09-02 16:05:26,177 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=251, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:05:26,691 - Model - INFO - The number of training data is: 10
+2024-09-02 16:05:26,692 - Model - INFO - The number of test data is: 10
+2024-09-02 16:05:26,726 - Model - INFO - No existing model, starting training from scratch...
+2024-09-02 16:05:27,276 - Model - INFO - Epoch 1 (1/251):
+2024-09-02 16:05:27,276 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:06:06,383 - Model - INFO - PARAMETER ...
+2024-09-02 16:06:06,383 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=251, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:06:06,386 - Model - INFO - The number of training data is: 10
+2024-09-02 16:06:06,386 - Model - INFO - The number of test data is: 10
+2024-09-02 16:06:06,397 - Model - INFO - No existing model, starting training from scratch...
+2024-09-02 16:06:06,705 - Model - INFO - Epoch 1 (1/251):
+2024-09-02 16:06:06,705 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:06:17,478 - Model - INFO - Train accuracy is: 0.11108
+2024-09-02 16:06:51,722 - Model - INFO - PARAMETER ...
+2024-09-02 16:06:51,722 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=251, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:06:51,738 - Model - INFO - The number of training data is: 10
+2024-09-02 16:06:51,739 - Model - INFO - The number of test data is: 10
+2024-09-02 16:06:51,749 - Model - INFO - No existing model, starting training from scratch...
+2024-09-02 16:06:52,057 - Model - INFO - Epoch 1 (1/251):
+2024-09-02 16:06:52,057 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:07:02,211 - Model - INFO - Train accuracy is: 0.06226
+2024-09-02 16:07:15,936 - Model - INFO - eval mIoU of Airplane       nan
+2024-09-02 16:07:15,937 - Model - INFO - eval mIoU of Bag            nan
+2024-09-02 16:07:15,937 - Model - INFO - eval mIoU of Cap            nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Car            nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Chair          nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Earphone       nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Guitar         nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Knife          nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Lamp           nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Laptop         nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Motorbike      nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Mug            nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Pistol         nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Rocket         nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Skateboard     nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Table          nan
+2024-09-02 16:07:15,938 - Model - INFO - eval mIoU of Workpiece      0.006201
+2024-09-02 16:07:15,938 - Model - INFO - Epoch 1 test Accuracy: 0.018604  Class avg mIOU: nan   Inctance avg mIOU: 0.006201
+2024-09-02 16:07:15,938 - Model - INFO - Save model...
+2024-09-02 16:07:15,938 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2/checkpoints/best_model.pth
+2024-09-02 16:07:16,002 - Model - INFO - Saving model....
+2024-09-02 16:07:16,002 - Model - INFO - Best accuracy is: 0.01860
+2024-09-02 16:07:16,002 - Model - INFO - Best class avg mIOU is: 0.00000
+2024-09-02 16:07:16,002 - Model - INFO - Best inctance avg mIOU is: 0.00620
+2024-09-02 16:07:16,002 - Model - INFO - Epoch 2 (2/251):
+2024-09-02 16:07:16,002 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:07:27,104 - Model - INFO - Train accuracy is: 0.14203
+2024-09-02 16:07:42,373 - Model - INFO - PARAMETER ...
+2024-09-02 16:07:42,373 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=3, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:07:42,390 - Model - INFO - The number of training data is: 10
+2024-09-02 16:07:42,390 - Model - INFO - The number of test data is: 10
+2024-09-02 16:07:42,446 - Model - INFO - Use pretrain model
+2024-09-02 16:07:42,750 - Model - INFO - Epoch 1 (1/3):
+2024-09-02 16:07:42,750 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:07:53,099 - Model - INFO - Train accuracy is: 0.14404
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Airplane       nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Bag            nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Cap            nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Car            nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Chair          nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Earphone       nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Guitar         nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Knife          nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Lamp           nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Laptop         nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Motorbike      nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Mug            nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Pistol         nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Rocket         nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Skateboard     nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Table          nan
+2024-09-02 16:08:06,555 - Model - INFO - eval mIoU of Workpiece      0.006104
+2024-09-02 16:08:06,556 - Model - INFO - Epoch 1 test Accuracy: 0.018311  Class avg mIOU: nan   Inctance avg mIOU: 0.006104
+2024-09-02 16:08:06,556 - Model - INFO - Save model...
+2024-09-02 16:08:06,556 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2/checkpoints/best_model.pth
+2024-09-02 16:08:06,596 - Model - INFO - Saving model....
+2024-09-02 16:08:06,596 - Model - INFO - Best accuracy is: 0.01831
+2024-09-02 16:08:06,596 - Model - INFO - Best class avg mIOU is: 0.00000
+2024-09-02 16:08:06,596 - Model - INFO - Best inctance avg mIOU is: 0.00610
+2024-09-02 16:08:06,596 - Model - INFO - Epoch 2 (2/3):
+2024-09-02 16:08:06,596 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:08:17,051 - Model - INFO - Train accuracy is: 0.26855
+2024-09-02 16:08:21,406 - Model - INFO - PARAMETER ...
+2024-09-02 16:08:21,406 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=3, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:08:21,423 - Model - INFO - The number of training data is: 10
+2024-09-02 16:08:21,423 - Model - INFO - The number of test data is: 10
+2024-09-02 16:08:21,498 - Model - INFO - Use pretrain model
+2024-09-02 16:08:21,788 - Model - INFO - Epoch 1 (1/3):
+2024-09-02 16:08:21,788 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:08:32,053 - Model - INFO - Train accuracy is: 0.27386
+2024-09-02 16:09:46,459 - Model - INFO - PARAMETER ...
+2024-09-02 16:09:46,459 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=3, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:09:46,464 - Model - INFO - The number of training data is: 10
+2024-09-02 16:09:46,464 - Model - INFO - The number of test data is: 10
+2024-09-02 16:09:46,503 - Model - INFO - Use pretrain model
+2024-09-02 16:09:46,773 - Model - INFO - Epoch 1 (1/3):
+2024-09-02 16:09:46,773 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:09:57,307 - Model - INFO - Train accuracy is: 0.27472
+2024-09-02 16:10:18,241 - Model - INFO - PARAMETER ...
+2024-09-02 16:10:18,241 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=3, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2', decay_rate=0.0001, npoint=2048, normal=True, step_size=20, lr_decay=0.5)
+2024-09-02 16:10:18,246 - Model - INFO - The number of training data is: 10
+2024-09-02 16:10:18,246 - Model - INFO - The number of test data is: 10
+2024-09-02 16:10:18,284 - Model - INFO - Use pretrain model
+2024-09-02 16:10:18,548 - Model - INFO - Epoch 1 (1/3):
+2024-09-02 16:10:18,548 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:10:28,984 - Model - INFO - Train accuracy is: 0.27112
+2024-09-02 16:10:42,463 - Model - INFO - eval mIoU of Workpiece      0.006364
+2024-09-02 16:10:42,464 - Model - INFO - Epoch 1 test Accuracy: 0.019092  Class avg mIOU: 0.006364   Inctance avg mIOU: 0.006364
+2024-09-02 16:10:42,464 - Model - INFO - Save model...
+2024-09-02 16:10:42,464 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2/checkpoints/best_model.pth
+2024-09-02 16:10:42,507 - Model - INFO - Saving model....
+2024-09-02 16:10:42,507 - Model - INFO - Best accuracy is: 0.01909
+2024-09-02 16:10:42,507 - Model - INFO - Best class avg mIOU is: 0.00636
+2024-09-02 16:10:42,507 - Model - INFO - Best inctance avg mIOU is: 0.00636
+2024-09-02 16:10:42,507 - Model - INFO - Epoch 2 (2/3):
+2024-09-02 16:10:42,507 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:10:52,637 - Model - INFO - Train accuracy is: 0.38232
+2024-09-02 16:11:06,160 - Model - INFO - eval mIoU of Workpiece      0.006560
+2024-09-02 16:11:06,161 - Model - INFO - Epoch 2 test Accuracy: 0.019678  Class avg mIOU: 0.006560   Inctance avg mIOU: 0.006560
+2024-09-02 16:11:06,161 - Model - INFO - Save model...
+2024-09-02 16:11:06,161 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2/checkpoints/best_model.pth
+2024-09-02 16:11:06,213 - Model - INFO - Saving model....
+2024-09-02 16:11:06,214 - Model - INFO - Best accuracy is: 0.01968
+2024-09-02 16:11:06,214 - Model - INFO - Best class avg mIOU is: 0.00656
+2024-09-02 16:11:06,214 - Model - INFO - Best inctance avg mIOU is: 0.00656
+2024-09-02 16:11:06,214 - Model - INFO - Epoch 3 (3/3):
+2024-09-02 16:11:06,214 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:11:16,304 - Model - INFO - Train accuracy is: 0.55865
+2024-09-02 16:11:29,941 - Model - INFO - eval mIoU of Workpiece      0.023460
+2024-09-02 16:11:29,941 - Model - INFO - Epoch 3 test Accuracy: 0.055127  Class avg mIOU: 0.023460   Inctance avg mIOU: 0.023460
+2024-09-02 16:11:29,941 - Model - INFO - Save model...
+2024-09-02 16:11:29,941 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2/checkpoints/best_model.pth
+2024-09-02 16:11:29,986 - Model - INFO - Saving model....
+2024-09-02 16:11:29,986 - Model - INFO - Best accuracy is: 0.05513
+2024-09-02 16:11:29,986 - Model - INFO - Best class avg mIOU is: 0.02346
+2024-09-02 16:11:29,986 - Model - INFO - Best inctance avg mIOU is: 0.02346

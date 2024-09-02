@@ -23,25 +23,82 @@ dataset:
 #   S3DIS_path: /root/autodl-fs/datasets/PointcloudData/Stanford3dDataset_v1.2_Aligned_Version
 
 
-# log:
-#   base_dir: 'log/'  # 基础日志目录，相对于项目根目录
-#   experiment: 'classification'  # 实验目录名
-#   checkpoints: 'checkpoints/'  # 检查点目录名，相对于实验目录
-#   logs: 'logs/'  # 日志文件目录名，相对于实验目录
+BASE_INFO_PARTSEG:
+  num_classes: 16   # 类别数量
+  num_part: 7       # 每个对象可能的分割部分数
+  seg_classes:
+    # Earphone:
+    #   - 16
+    #   - 17
+    #   - 18
+    # Motorbike:
+    #   - 30
+    #   - 31
+    #   - 32
+    #   - 33
+    #   - 34
+    #   - 35
+    # Rocket:
+    #   - 41
+    #   - 42
+    #   - 43
+    # Car:
+    #   - 8
+    #   - 9
+    #   - 10
+    #   - 11
+    # Laptop:
+    #   - 28
+    #   - 29
+    # Cap:
+    #   - 6
+    #   - 7
+    # Skateboard:
+    #   - 44
+    #   - 45
+    #   - 46
+    # Mug:
+    #   - 36
+    #   - 37
+    # Guitar:
+    #   - 19
+    #   - 20
+    #   - 21
+    # Bag:
+    #   - 4
+    #   - 5
+    # Lamp:
+    #   - 24
+    #   - 25
+    #   - 26
+    #   - 27
+    # Table:
+    #   - 47
+    #   - 48
+    #   - 49
+    # Airplane:
+    #   - 0
+    #   - 1
+    #   - 2
+    #   - 3
+    # Pistol:
+    #   - 38
+    #   - 39
+    #   - 40
+    # Chair:
+    #   - 12
+    #   - 13
+    #   - 14
+    #   - 15
+    # Knife:
+    #   - 22
+      # - 23
+    Workpiece:
+      - 0
+      - 1
+      - 2
 
-# model:
-#   name: 'pointnet2_cls_ssg'  # 模型名称, 默认为pointnet_cls
-#   num_category: 40  # 类别数量
 
-# training:
-#   use_cpu: true  # 是否使用CPU
-#   gpu: '0'  # 指定GPU设备
-#   batch_size: 24  # 批量大小, 默认为24
-#   epoch: 2  # 训练轮数, 默认为200
-#   learning_rate: 0.001  # 学习率
-#   num_point: 1024  # 点的数量
-#   optimizer: 'Adam'  # 优化器
-#   decay_rate: 1e-4  # 权重衰减率
-#   use_normals: true  # 是否使用法向量, 默认为False
-#   process_data: false  # 是否离线处理数据
-#   use_uniform_sample: false  # 是否使用均匀采样
+
+
+

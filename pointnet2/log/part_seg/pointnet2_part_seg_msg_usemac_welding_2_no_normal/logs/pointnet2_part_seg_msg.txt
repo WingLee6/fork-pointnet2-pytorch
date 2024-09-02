@@ -1,0 +1,35 @@
+2024-09-02 16:47:48,646 - Model - INFO - PARAMETER ...
+2024-09-02 16:47:48,646 - Model - INFO - Namespace(model='pointnet2_part_seg_msg', batch_size=8, epoch=3, learning_rate=0.001, momentum=0.9, gpu='-1', optimizer='Adam', log_dir='pointnet2_part_seg_msg_usemac_welding_2_no_normal', decay_rate=0.0001, npoint=2048, normal=False, step_size=20, lr_decay=0.5)
+2024-09-02 16:47:48,661 - Model - INFO - The number of training data is: 10
+2024-09-02 16:47:48,662 - Model - INFO - The number of test data is: 10
+2024-09-02 16:47:48,671 - Model - INFO - No existing model, starting training from scratch...
+2024-09-02 16:47:49,035 - Model - INFO - Epoch 1 (1/3):
+2024-09-02 16:47:49,036 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:48:00,480 - Model - INFO - Train accuracy is: 0.21332
+2024-09-02 16:48:13,982 - Model - INFO - eval mIoU of Workpiece      0.005957
+2024-09-02 16:48:13,983 - Model - INFO - Epoch 1 test Accuracy: 0.017871  Class avg mIOU: 0.005957   Inctance avg mIOU: 0.005957
+2024-09-02 16:48:13,983 - Model - INFO - Save model...
+2024-09-02 16:48:13,984 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2_no_normal/checkpoints/best_model.pth
+2024-09-02 16:48:14,062 - Model - INFO - Saving model....
+2024-09-02 16:48:14,062 - Model - INFO - Best accuracy is: 0.01787
+2024-09-02 16:48:14,062 - Model - INFO - Best class avg mIOU is: 0.00596
+2024-09-02 16:48:14,062 - Model - INFO - Best inctance avg mIOU is: 0.00596
+2024-09-02 16:48:14,062 - Model - INFO - Epoch 2 (2/3):
+2024-09-02 16:48:14,062 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:48:24,244 - Model - INFO - Train accuracy is: 0.30273
+2024-09-02 16:48:37,641 - Model - INFO - eval mIoU of Workpiece      0.005876
+2024-09-02 16:48:37,642 - Model - INFO - Epoch 2 test Accuracy: 0.017627  Class avg mIOU: 0.005876   Inctance avg mIOU: 0.005876
+2024-09-02 16:48:37,642 - Model - INFO - Best accuracy is: 0.01787
+2024-09-02 16:48:37,642 - Model - INFO - Best class avg mIOU is: 0.00596
+2024-09-02 16:48:37,642 - Model - INFO - Best inctance avg mIOU is: 0.00596
+2024-09-02 16:48:37,642 - Model - INFO - Epoch 3 (3/3):
+2024-09-02 16:48:37,642 - Model - INFO - Learning rate:0.001000
+2024-09-02 16:48:47,620 - Model - INFO - Train accuracy is: 0.42877
+2024-09-02 16:49:01,018 - Model - INFO - eval mIoU of Workpiece      0.006250
+2024-09-02 16:49:01,018 - Model - INFO - Epoch 3 test Accuracy: 0.018750  Class avg mIOU: 0.006250   Inctance avg mIOU: 0.006250
+2024-09-02 16:49:01,019 - Model - INFO - Save model...
+2024-09-02 16:49:01,019 - Model - INFO - Saving at log/part_seg/pointnet2_part_seg_msg_usemac_welding_2_no_normal/checkpoints/best_model.pth
+2024-09-02 16:49:01,072 - Model - INFO - Saving model....
+2024-09-02 16:49:01,072 - Model - INFO - Best accuracy is: 0.01875
+2024-09-02 16:49:01,072 - Model - INFO - Best class avg mIOU is: 0.00625
+2024-09-02 16:49:01,072 - Model - INFO - Best inctance avg mIOU is: 0.00625
